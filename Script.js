@@ -1,48 +1,58 @@
-let input = document.getElementById("input");
-let button = document.getElementById("add");
-let list = document.getElementById("list");
+const input = document.getElementById("taskInput");
+const addBtn = document.getElementById("addBtn");
+const list = document.getElementById("taskList");
 
+// تحميل المهام من التخزين
 let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
-tasks.forEach(addTaskToDOM);
+// عرض المهام
+function renderTasks() {
+    list.innerHTML = "";
 
-button.onclick = addTask;
+    tasks.forEach((task, index) => {
+        const li = document.createElement("li");
 
-function addTask() {
-    let value = input.value.trim();
-    if (value === "") return;
+        li.innerHTML = `
+            <span style="text-decoration:${task.done ? "line-through" : "none"}">
+                ${task.text}
+            </span>
+            <div>
+                <button onclick="toggleTask(${index})">✔️</button>
+                <button onclick="deleteTask(${index})">❌</button>
+            </div>
+        `;
 
-    tasks.push(value);
-    saveTasks();
+        list.appendChild(li);
+    });
 
-    addTaskToDOM(value);
-    input.value = "";
-}
-
-function addTaskToDOM(task) {
-    let li = document.createElement("li");
-    li.innerText = task;
-
-    // زر حذف
-    let del = document.createElement("button");
-    del.innerText = "✖";
-
-    del.onclick = function (e) {
-        e.stopPropagation();
-        li.remove();
-        tasks = tasks.filter(t => t !== task);
-        saveTasks();
-    };
-
-    // تحديد كمكتمل
-    li.onclick = function () {
-        li.classList.toggle("done");
-    };
-
-    li.appendChild(del);
-    list.appendChild(li);
-}
-
-function saveTasks() {
+    // حفظ بعد كل تحديث
     localStorage.setItem("tasks", JSON.stringify(tasks));
 }
+
+// إضافة مهمة
+addBtn.onclick = () => {
+    if (input.value.trim() === "") return;
+
+    tasks.push({
+        text: input.value,
+        done: false
+    });
+
+    input.value = "";
+    renderTasks();
+};
+
+// حذف
+function deleteTask(index) {
+    tasks.splice(index, 1);
+    renderTasks();
+}
+
+// إكمال
+function toggleTask(index) {
+    tasks[index].done = !tasks[index].done;
+    renderTasks();
+}
+
+// أول تشغيل
+renderTasks();

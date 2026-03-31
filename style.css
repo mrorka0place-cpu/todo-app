@@ -1,94 +1,26 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>Todo App</title>
+<link rel="stylesheet" href="style.css">
+</head>
 
-body {
-    font-family: system-ui;
-    background: #0f172a;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
+<body>
 
-/* شكل التطبيق */
-.app {
-    width: 350px;
-    height: 600px;
-    background: #020617;
-    border-radius: 25px;
-    overflow: hidden;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.6);
-    display: flex;
-    flex-direction: column;
-}
+<div class="container">
 
-/* الهيدر */
-.header {
-    background: #38bdf8;
-    padding: 15px;
-    text-align: center;
-    font-weight: bold;
-}
+    <h1>My Tasks</h1>
 
-/* الإدخال */
-.input-box {
-    display: flex;
-    padding: 10px;
-    gap: 10px;
-}
+    <div class="input-box">
+        <input id="taskInput" placeholder="اكتب مهمتك هنا...">
+        <button id="addBtn">+</button>
+    </div>
 
-input {
-    flex: 1;
-    padding: 12px;
-    border-radius: 20px;
-    border: none;
-    outline: none;
-}
+    <ul id="taskList"></ul>
 
-#add {
-    width: 45px;
-    border-radius: 50%;
-    background: #38bdf8;
-    border: none;
-    font-size: 20px;
-    cursor: pointer;
-}
+</div>
 
-/* القائمة */
-ul {
-    list-style: none;
-    padding: 10px;
-    overflow-y: auto;
-    flex: 1;
-}
-
-/* المهمة */
-li {
-    background: #1e293b;
-    color: white;
-    padding: 12px;
-    border-radius: 12px;
-    margin-bottom: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-/* تم الإنجاز */
-.done {
-    text-decoration: line-through;
-    opacity: 0.5;
-}
-
-/* زر حذف */
-li button {
-    background: red;
-    border: none;
-    color: white;
-    padding: 5px 8px;
-    border-radius: 5px;
-    cursor: pointer;
-}
+<script src="Script.js"></script>
+</body>
+</html>
